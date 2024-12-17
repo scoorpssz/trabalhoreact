@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 import heroesList from "../shared/heroesList";
 
 interface Hero {
-  id: string;
+  id: number;
   name: string;
   image: string;
   super_power: string;
@@ -14,8 +14,8 @@ interface SuperHeroContextType {
   favorites: Hero[];
   addHero: (hero: Omit<Hero, "id">) => void;
   editHero: (hero: Hero) => void;
-  deleteHero: (id: string) => void;
-  toggleFavorite: (id: string) => void;
+  deleteHero: (id: number) => void;
+  toggleFavorite: (id: number) => void;
 }
 
 export const SuperHeroContext = createContext<SuperHeroContextType | undefined>(undefined);
@@ -31,7 +31,7 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, [superHeroes]);
 
   const addHero = (hero: Omit<Hero, "id">) => {
-    const newHero = { ...hero, id: Date.now().toString() };
+    const newHero = { ...hero, id: Date.now() };
     setSuperHeroes([...superHeroes, newHero]);
   };
 
@@ -39,12 +39,12 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setSuperHeroes(superHeroes.map((hero) => (hero.id === updatedHero.id ? updatedHero : hero)));
   };
 
-  const deleteHero = (id: string) => {
+  const deleteHero = (id: number) => {
     setSuperHeroes(superHeroes.filter((hero) => hero.id !== id));
     setFavorites(favorites.filter((hero) => hero.id !== id));
   };
 
-  const toggleFavorite = (id: string) => {
+  const toggleFavorite = (id: number) => {
     const hero = superHeroes.find((hero) => hero.id === id);
     if (!hero) return;
 
