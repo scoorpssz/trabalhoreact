@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
 import heroesList from "../shared/heroesList";
-a
+
 interface Hero {
   id: string;
   name: string;
