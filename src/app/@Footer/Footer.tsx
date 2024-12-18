@@ -1,15 +1,12 @@
 import React from 'react';
 import './footer.css';
 
-interface FooterProps {
-  my_name: string;
-  project_name: string;
-}
 
-const Footer: React.FC<FooterProps> = ({ my_name, project_name }) => {
+
+const Footer = (props: { project_name: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined; my_name: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined; })=> {
   return (
     <footer className='footer'>
-      <p>© 2024 - Criado por José Claudio.</p>
+      <p> {props.project_name} © 2024 - Criado por {props.my_name}.</p>
     </footer>
   );
 };
