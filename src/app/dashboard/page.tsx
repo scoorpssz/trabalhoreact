@@ -17,7 +17,7 @@ export default function Dashboard() {
     return (
       <div className="dashboard-container">
         <div className="dashboard-header">
-          <h1>Super-Heróis Dashboard</h1>
+          <h1>League of Heroes Dashboard</h1>
         </div>
         <div className="no-heroes">Não há super-heróis para exibir.</div>
         <div className="add-hero-link">
