@@ -9,3 +9,4 @@ const HeroInfo = (props) => {
 };
 
 export default HeroInfo;
+

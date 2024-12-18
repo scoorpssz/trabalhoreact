@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext } from "react";
 import { SuperHeroContext } from "../Context/SuperHeroContext";
+import Link from "next/link";
 
 export default function Dashboard() {
   const context = useContext(SuperHeroContext);
@@ -18,6 +19,9 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Super-Heróis Dashboard</h1>
+      <nav>
+        <Link href="/" className='nav'>Home</Link>
+      </nav>  
       <table cellSpacing="1" cellPadding="10">
         <thead>
           <tr>
