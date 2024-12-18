@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { SuperHeroContext } from "../Context/SuperHeroContext";
 import Link from "next/link";
+import "./dashboard.css";
 
 export default function Dashboard() {
   const context = useContext(SuperHeroContext);
@@ -13,16 +14,31 @@ export default function Dashboard() {
   const { superHeroes, favorites, deleteHero, toggleFavorite } = context;
 
   if (superHeroes.length === 0) {
-    return <div>Não há super-heróis para exibir.</div>;
+    return (
+      <div className="dashboard-container">
+        <div className="dashboard-header">
+          <h1>Super-Heróis Dashboard</h1>
+        </div>
+        <div className="no-heroes">Não há super-heróis para exibir.</div>
+        <div className="add-hero-link">
+          <Link href="/add-edit-hero" className="add-button">
+            Adicionar Super-Herói
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>Super-Heróis Dashboard</h1>
-      <nav>
-        <Link href="/" className='nav'>Home</Link>
-      </nav>  
-      <table cellSpacing="1" cellPadding="10">
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h1>Super-Heróis Dashboard</h1>
+        <div className="dashboard-actions">
+          <Link href="/" className="nav">Home</Link>
+          <Link href="/add-edit-hero" className="add-button">Adicionar Super-Herói</Link>
+        </div>
+      </div>
+      <table className="dashboard-table" cellSpacing="1" cellPadding="10">
         <thead>
           <tr>
             <th>ID</th>
@@ -41,14 +57,27 @@ export default function Dashboard() {
               </td>
               <td>{hero.name}</td>
               <td>{hero.super_power || "N/D"}</td>
-              <td>
-                <button onClick={() => deleteHero(hero.id)}>Apagar</button>
-                <button onClick={() => toggleFavorite(hero.id)}>
+              <td className="dashboard-buttons">
+                <button
+                  className="delete-button"
+                  onClick={() => deleteHero(hero.id)}
+                >
+                  Apagar
+                </button>
+                <button
+                  className="favorite-button"
+                  onClick={() => toggleFavorite(hero.id)}
+                >
                   {favorites.find((fav) => fav.id === hero.id)
                     ? "Remover Favorito"
                     : "Adicionar Favorito"}
                 </button>
-                <button>Editar</button>
+                <Link
+                  href={`/add-edit-hero?id=${hero.id}`}
+                  className="edit-button"
+                >
+                  Editar
+                </Link>
               </td>
             </tr>
           ))}
