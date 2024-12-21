@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   description: "Gerenciador de Super-Heróis",
 };
 
-interface RootLayoutProps {
+type RootLayoutProps = {
   children: React.ReactNode;
   header?: React.ReactNode; 
   footer?: React.ReactNode; 
-}
+};
 
 export default function RootLayout({
   children,
