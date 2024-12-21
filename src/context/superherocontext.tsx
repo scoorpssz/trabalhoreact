@@ -50,23 +50,28 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const deleteHero = (id: number) => {
-    setSuperHeroes(superHeroes.filter(hero => hero.id !== id));
-    setFavorites(favorites.filter(hero => hero.id !== id));
-    UpdateSuperhero(superHeroes.filter(hero => hero.id !== id));
-    UpdateTop(favorites.filter(hero => hero.id !== id));
+    const updatedHeroes = superHeroes.filter(hero => hero.id !== id);
+    const updatedFavorites = favorites.filter(hero => hero.id !== id);
+    setSuperHeroes(updatedHeroes);
+    setFavorites(updatedFavorites);
+    UpdateSuperhero(updatedHeroes);
+    UpdateTop(updatedFavorites);
   };
 
   const toggleFavorite = (id: number) => {
-    if (favorites.some(hero => hero.id === id)) {
-      setFavorites(favorites.filter(hero => hero.id !== id));
-      UpdateTop(favorites.filter(hero => hero.id !== id));
-    } else {
-      const heroToAdd = superHeroes.find(hero => hero.id === id);
-      if (heroToAdd) {
-        setFavorites([...favorites, heroToAdd]);
-        UpdateTop([...favorites, heroToAdd]);
-      }
-    }
+    const heroToAdd = superHeroes.find(hero => hero.id === id);
+
+    if (!heroToAdd) return;
+
+    setFavorites(prevFavorites => {
+      const isFavorite = prevFavorites.some(hero => hero.id === id);
+      const updatedFavorites = isFavorite
+        ? prevFavorites.filter(hero => hero.id !== id)
+        : [...prevFavorites, heroToAdd];
+
+      UpdateTop(updatedFavorites);
+      return updatedFavorites;
+    });
   };
 
   const contextValue = {
