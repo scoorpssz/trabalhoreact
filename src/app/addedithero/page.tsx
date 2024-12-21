@@ -9,10 +9,6 @@ export default function AddEditHero() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  if (!context) {
-    return <div>Context not found</div>;
-  }
-
   const { superHeroes, addHero, editHero } = context;
 
   const [heroData, setHeroData] = useState({
@@ -51,6 +47,10 @@ export default function AddEditHero() {
     }
     router.push("/dashboard");
   };
+
+  if (!context) {
+    return <div>Context not found</div>;
+  }
 
   return (
     <div className="add-edit-hero-container">
