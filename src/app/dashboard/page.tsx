@@ -68,11 +68,10 @@ export default function Dashboard() {
                   className="favorite-button"
                   onClick={() => context?.toggleFavorite(hero.id)}
                 >
-                  {context?.favorites.some((favid) => favid.id === hero.id)
+                  {context?.favorites.includes(hero.id)
                     ? "Remover Favorito"
                     : "Adicionar Favorito"}
                 </button>
-
                 <Link href={`/addedithero?id=${hero.id}`} className="edit-button">Editar</Link>
               </td>
             </tr>

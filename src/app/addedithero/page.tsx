@@ -4,31 +4,25 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { superherocontext } from "../../context/superherocontext";
 import './addedithero.css';  
 
-interface HeroData {
-  id: number;
-  name: string;
-  image: string;
-  super_power: string;
-}
-
 export default function AddEditHero() {
   const context = useContext(superherocontext);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   if (!context) {
-    return <div>Contexto não encontrado</div>;
+    return <div>Context not found</div>;
   }
 
   const { superHeroes, addHero, editHero } = context;
 
-  const [heroData, setHeroData] = useState<HeroData>({
+  const [heroData, setHeroData] = useState({
     id: 0,
     name: "",
     image: "",
     super_power: "",
   });
 
+  
   useEffect(() => {
     const heroId = searchParams.get("id");
     if (heroId) {
@@ -45,12 +39,11 @@ export default function AddEditHero() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (heroData.id) {
-      // Editar herói existente
+     
       editHero(heroData); 
     } else {
-      // Adicionar novo herói
+     
       addHero({
-        id: Date.now(), // Gerar um ID único para o novo herói
         name: heroData.name,
         image: heroData.image,
         super_power: heroData.super_power,
