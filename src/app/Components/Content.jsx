@@ -19,14 +19,14 @@ const Content = () => {
     let randomFavorites = [];
     
     while (randomFavorites.length < 3) {
-      let randomNum = Math.floor(Math.random() * heroesList.length) + 1;
+      let randomNum = Math.floor(Math.random() * context?.superHeroes.length) + 1;
       
       if (!randomFavorites.includes(randomNum)) {
         randomFavorites.push(randomNum);
       }
     }
     
-    context?.setFavoriteHeroes(randomFavorites);
+    context?.setFavorites(randomFavorites);
   };
 
   return (
@@ -38,8 +38,8 @@ const Content = () => {
       
       <button onClick={generateRandomFavorites}>Mudar Favoritos</button>
       <div className="heroes-grid">
-        {context?.listOfHeroes
-          .filter(hero => context?.favoriteHeroes.includes(hero.id))
+        {context?.superHeroes
+          .filter(hero => context?.favorites.includes(hero.id))
           .map((hero) => (
             <div className="hero-card" key={hero.id}>
               <HeroInfo
