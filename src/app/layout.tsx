@@ -1,10 +1,8 @@
-
 import React from "react";
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import { SuperHeroProvider } from "../context/superherocontext";
 import "./globals.css";
-
 
 const geistSans = localFont({
   src: "/fonts/GeistVF.woff",
@@ -18,21 +16,22 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-
 export const metadata: Metadata = {
   title: "Super-Heróis",
   description: "Gerenciador de Super-Heróis",
 };
 
+interface RootLayoutProps {
+  children: React.ReactNode;
+  header?: React.ReactNode; 
+  footer?: React.ReactNode; 
+}
+
 export default function RootLayout({
   children,
   header,
   footer,
-}: Readonly<{
-  children: React.ReactNode;
-  header: React.ReactNode;
-  footer: React.ReactNode;
-}>) {
+}: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
