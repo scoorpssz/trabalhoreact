@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { superherocontext } from "../../context/superherocontext";
-import './addedithero.css';  
+import './addedithero.css';
 
 export default function AddEditHeroContent() {
   const context = useContext(superherocontext);
@@ -22,12 +22,13 @@ export default function AddEditHeroContent() {
     super_power: "",
   });
 
-  
   useEffect(() => {
-    const heroId = searchParams.get("id");
-    if (heroId) {
-      const existingHero = superHeroes.find((hero) => hero.id === Number(heroId));
-      if (existingHero) setHeroData(existingHero);
+    if (searchParams) {
+      const heroId = searchParams.get("id");
+      if (heroId) {
+        const existingHero = superHeroes.find((hero) => hero.id === Number(heroId));
+        if (existingHero) setHeroData(existingHero);
+      }
     }
   }, [superHeroes, searchParams]);
 
@@ -39,15 +40,14 @@ export default function AddEditHeroContent() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (heroData.id) {
-     
-      editHero(heroData); 
+      editHero(heroData);
     } else {
-     
       addHero({
+        id: heroData.id,
         name: heroData.name,
         image: heroData.image,
         super_power: heroData.super_power,
-      }); 
+      });
     }
     router.push("/dashboard");
   };
