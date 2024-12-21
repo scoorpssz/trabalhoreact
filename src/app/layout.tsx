@@ -17,8 +17,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Super-Heróis",
-  description: "Gerenciador de Super-Heróis",
+  title: "League of Heroes",
+  description: "Liga dos herois",
 };
 
 export default function RootLayout({
