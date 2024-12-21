@@ -37,7 +37,7 @@ const Content = () => {
       {loading && <Loader />}
       <button onClick={generateRandomFavorites}>Mudar Favoritos</button>
       <div className="heroes-grid">
-        {context?.favorites.map((favoriteId) => {
+        {context?.favorites.slice(0, 3).map((favoriteId) => {
           const hero = context.superHeroes.find((h) => h.id === favoriteId);
           return hero ? (
             <div className="hero-card" key={hero.id}>
