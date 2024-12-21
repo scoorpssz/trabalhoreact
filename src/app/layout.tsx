@@ -21,17 +21,11 @@ export const metadata: Metadata = {
   description: "Gerenciador de Super-Heróis",
 };
 
-type RootLayoutProps = {
-  children: React.ReactNode;
-  header?: React.ReactNode; 
-  footer?: React.ReactNode; 
-};
-
 export default function RootLayout({
   children,
   header,
   footer,
-}: RootLayoutProps) {
+}: any) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
