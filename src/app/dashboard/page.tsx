@@ -11,8 +11,6 @@ export default function Dashboard() {
     return <div>Context not found</div>;
   }
 
-  //const { superHeroes, favorites, deleteHero, toggleFavorite } = context;
-
   if (context?.superHeroes.length === 0) {
     return (
       <div className="dashboard-container">
@@ -68,7 +66,7 @@ export default function Dashboard() {
                   className="favorite-button"
                   onClick={() => context?.toggleFavorite(hero.id)}
                 >
-                  {context?.favorites.includes(hero.id)
+                  {context?.favorites.some(favorite => favorite.id === hero.id)
                     ? "Remover Favorito"
                     : "Adicionar Favorito"}
                 </button>
