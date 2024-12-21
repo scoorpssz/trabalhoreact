@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import HeroInfo from './HeroInfo';
-import heroesList from '../../shared/heroeslist';
+import { SuperHeroProvider } from '@/context/superherocontext'; 
 import Loader from './Loader'; 
 
 const Content = () => {
-  const [listOfHeroes, setListOfHeroes] = useState(heroesList); 
-  const [favoriteHeroes, setFavoriteHeroes] = useState([1, 5, 6]);
+  const context = useContext(SuperHeroProvider);
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const Content = () => {
       }
     }
     
-    setFavoriteHeroes(randomFavorites);
+    context?.setFavoriteHeroes(randomFavorites);
   };
 
   return (
@@ -39,8 +38,8 @@ const Content = () => {
       
       <button onClick={generateRandomFavorites}>Mudar Favoritos</button>
       <div className="heroes-grid">
-        {listOfHeroes
-          .filter(hero => favoriteHeroes.includes(hero.id))
+        {context?.listOfHeroes
+          .filter(hero => context?.favoriteHeroes.includes(hero.id))
           .map((hero) => (
             <div className="hero-card" key={hero.id}>
               <HeroInfo

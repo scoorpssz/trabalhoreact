@@ -47,6 +47,8 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const editHero = (updatedHero: Hero) => {
     setSuperHeroes(superHeroes.map(hero => (hero.id === updatedHero.id ? updatedHero : hero)));
     UpdateSuperhero(superHeroes.map(hero => (hero.id === updatedHero.id ? updatedHero : hero)));
+    setFavorites(favorites.filter(hero => hero.id !== updatedHero.id));
+    UpdateTop(favorites.filter(hero => hero.id !== updatedHero.id));
   };
 
   const deleteHero = (id: number) => {
