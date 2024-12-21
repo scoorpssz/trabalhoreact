@@ -18,14 +18,14 @@ const Content = () => {
   const generateRandomFavorites = () => {
     if (context) {
       const { superHeroes, setFavorites } = context;
-      const randomFavorites = [];
-      while (randomFavorites.length < 3) {
+      const randomFavorites = new Set();
+
+      while (randomFavorites.size < 3 && superHeroes.length >= 3) {
         const randomHero = superHeroes[Math.floor(Math.random() * superHeroes.length)];
-        if (!randomFavorites.includes(randomHero.id)) {
-          randomFavorites.push(randomHero.id);
-        }
+        randomFavorites.add(randomHero.id);
       }
-      setFavorites(randomFavorites);
+
+      setFavorites(Array.from(randomFavorites));
     }
   };
 
@@ -36,7 +36,6 @@ const Content = () => {
       <div className="heroes-grid">
         {context?.superHeroes
           .filter((hero) => context?.favorites.includes(hero.id))
-          .slice(0, 3)
           .map((hero) => (
             <div className="hero-card" key={hero.id}>
               <HeroInfo
