@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
-import HeroInfo from './HeroInfo';
-import { superherocontext } from '@/context/superherocontext';
-import Loader from './Loader';
+import { useState, useEffect, useContext } from "react";
+import HeroInfo from "./HeroInfo";
+import { superherocontext } from "@/context/superherocontext";
+import Loader from "./Loader";
 
 const Content = () => {
   const context = useContext(superherocontext);
@@ -17,19 +17,19 @@ const Content = () => {
 
   const generateRandomFavorites = () => {
     if (context) {
-      let randomFavorites = [];
+      const { superHeroes, setFavorites } = context;
 
+      // Selecionar IDs aleatórios de heróis
+      const randomFavorites = [];
       while (randomFavorites.length < 3) {
-        let randomNum = Math.floor(Math.random() * context.superHeroes.length) + 1;
-
-        if (!randomFavorites.includes(randomNum)) {
-          randomFavorites.push(randomNum);
+        const randomHero = superHeroes[Math.floor(Math.random() * superHeroes.length)];
+        if (!randomFavorites.includes(randomHero.id)) {
+          randomFavorites.push(randomHero.id);
         }
       }
 
-      randomFavorites.forEach((id) => {
-        context.toggleFavorite(id);
-      });
+      // Atualizar os favoritos no contexto
+      setFavorites(randomFavorites);
     }
   };
 
@@ -39,7 +39,7 @@ const Content = () => {
       <button onClick={generateRandomFavorites}>Mudar Favoritos</button>
       <div className="heroes-grid">
         {context?.superHeroes
-          .filter(hero => context?.favorites.includes(hero.id))
+          .filter((hero) => context?.favorites.includes(hero.id))
           .map((hero) => (
             <div className="hero-card" key={hero.id}>
               <HeroInfo
