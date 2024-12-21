@@ -2,7 +2,7 @@
 import React from "react";
 import { Metadata } from "next";
 import localFont from "next/font/local";
-import { SuperHeroProvider } from "./Context/SuperHeroContext";
+import { SuperHeroProvider } from "../context/superherocontext";
 import "./globals.css";
 
 

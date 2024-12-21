@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import HeroInfo from './HeroInfo';
-import heroesList from '../shared/heroeslist';
+import heroesList from '../../shared/heroeslist';
 import Loader from './Loader'; 
 
 const Content = () => {

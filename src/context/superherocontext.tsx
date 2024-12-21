@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
-import heroesList from "../shared/heroesList";
+import heroesList from "../shared/heroeslist";
 
 interface Hero {
   id: number;
@@ -9,7 +9,7 @@ interface Hero {
   super_power: string;
 }
 
-interface SuperHeroContextType {
+interface superherocontextType {
   superHeroes: Hero[];
   favorites: Hero[];
   addHero: (hero: Omit<Hero, "id">) => void;
@@ -18,7 +18,7 @@ interface SuperHeroContextType {
   toggleFavorite: (id: number) => void;
 }
 
-export const SuperHeroContext = createContext<SuperHeroContextType | undefined>(undefined);
+export const superherocontext = createContext<superherocontextType | undefined>(undefined);
 
 export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [superHeroes, setSuperHeroes] = useState<Hero[]>([]);
@@ -65,8 +65,8 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   return (
-    <SuperHeroContext.Provider value={contextValue}>
+    <superherocontext.Provider value={contextValue}>
       {children}
-    </SuperHeroContext.Provider>
+    </superherocontext.Provider>
   );
 };
