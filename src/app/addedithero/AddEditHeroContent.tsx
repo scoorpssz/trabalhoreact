@@ -1,13 +1,19 @@
 "use client";
-
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { superherocontext } from "../../context/superherocontext";
+import './addedithero.css';
 
 export default function AddEditHeroContent() {
   const context = useContext(superherocontext);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  if (!context) {
+    return <div>Context not found</div>;
+  }
+
+  const { superHeroes, addHero, editHero } = context;
 
   const [heroData, setHeroData] = useState({
     id: 0,
@@ -17,12 +23,14 @@ export default function AddEditHeroContent() {
   });
 
   useEffect(() => {
-    const heroId = searchParams.get("id");
-    if (heroId) {
-      const existingHero = context?.superHeroes.find((hero) => hero.id === Number(heroId));
-      if (existingHero) setHeroData(existingHero);
+    if (searchParams) {
+      const heroId = searchParams.get("id");
+      if (heroId) {
+        const existingHero = superHeroes.find((hero) => hero.id === Number(heroId));
+        if (existingHero) setHeroData(existingHero);
+      }
     }
-  }, [context?.superHeroes, searchParams]);
+  }, [superHeroes, searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,9 +40,9 @@ export default function AddEditHeroContent() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (heroData.id) {
-      context?.editHero(heroData);
+      editHero(heroData);
     } else {
-      context?.addHero({
+      addHero({
         id: heroData.id,
         name: heroData.name,
         image: heroData.image,
@@ -45,8 +53,40 @@ export default function AddEditHeroContent() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* Formulário similar ao anterior */}
-    </form>
+    <div className="add-edit-hero-container">
+      <h1>{heroData.id ? "Editar Super-Herói" : "Adicionar Super-Herói"}</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Nome"
+          value={heroData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="image"
+          placeholder="Imagem (URL)"
+          value={heroData.image}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="super_power"
+          placeholder="Superpoder"
+          value={heroData.super_power}
+          onChange={handleChange}
+          required
+        />
+        <div className="form-buttons">
+          <button type="submit">Gravar</button>
+          <button type="button" onClick={() => router.push("/dashboard")}>
+            Voltar
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
