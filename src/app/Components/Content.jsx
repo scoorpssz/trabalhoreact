@@ -10,16 +10,6 @@ const Content = () => {
   useEffect(() => {
     if (context && context.superHeroes.length > 0) {
       setLoading(false);
-      const { superHeroes, setFavorites } = context;
-
-      if (superHeroes.length >= 3) {
-        const randomFavorites = new Set();
-        while (randomFavorites.size < 3) {
-          const randomHero = superHeroes[Math.floor(Math.random() * superHeroes.length)];
-          randomFavorites.add(randomHero.id);
-        }
-        setFavorites(Array.from(randomFavorites));
-      }
     }
   }, [context]);
 
