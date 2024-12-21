@@ -26,13 +26,15 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   useEffect(() => {
     GetHeroesFromUsers(PUBLIC_ID).then(res => {
-      setSuperHeroes(res);
+      const filteredHeroes = res.filter((item: any) => item.id);
+      setSuperHeroes(filteredHeroes);
     });
   }, []);
 
   useEffect(() => {
     GetTopHeroesFromUsers(PUBLIC_ID).then(res => {
-      setFavorites(res);
+      const filteredFavorites = res.filter((item: any) => item.id);
+      setFavorites(filteredFavorites);
     });
   }, []);
 
