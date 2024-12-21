@@ -1,41 +1,41 @@
 import { useState, useEffect, useContext } from 'react';
 import HeroInfo from './HeroInfo';
-import { SuperHeroProvider } from '@/context/superherocontext'; 
-import Loader from './Loader'; 
+import { superherocontext } from '@/context/superherocontext';
+import Loader from './Loader';
 
 const Content = () => {
-  const context = useContext(SuperHeroProvider);
-  const [loading, setLoading] = useState(true); 
+  const context = useContext(superherocontext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setLoading(false); 
+      setLoading(false);
     }, 3000);
 
-    return () => clearTimeout(timeout); 
+    return () => clearTimeout(timeout);
   }, []);
 
   const generateRandomFavorites = () => {
-    let randomFavorites = [];
-    
-    while (randomFavorites.length < 3) {
-      let randomNum = Math.floor(Math.random() * context?.superHeroes.length) + 1;
-      
-      if (!randomFavorites.includes(randomNum)) {
-        randomFavorites.push(randomNum);
+    if (context) {
+      let randomFavorites = [];
+
+      while (randomFavorites.length < 3) {
+        let randomNum = Math.floor(Math.random() * context.superHeroes.length) + 1;
+
+        if (!randomFavorites.includes(randomNum)) {
+          randomFavorites.push(randomNum);
+        }
       }
+
+      randomFavorites.forEach((id) => {
+        context.toggleFavorite(id);
+      });
     }
-    
-    context?.setFavorites(randomFavorites);
   };
 
   return (
     <div className="content">
-      {loading && <Loader />} 
-      
-      
-      
-      
+      {loading && <Loader />}
       <button onClick={generateRandomFavorites}>Mudar Favoritos</button>
       <div className="heroes-grid">
         {context?.superHeroes
