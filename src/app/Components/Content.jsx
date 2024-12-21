@@ -18,8 +18,6 @@ const Content = () => {
   const generateRandomFavorites = () => {
     if (context) {
       const { superHeroes, setFavorites } = context;
-
-      // Selecionar IDs aleatórios de heróis
       const randomFavorites = [];
       while (randomFavorites.length < 3) {
         const randomHero = superHeroes[Math.floor(Math.random() * superHeroes.length)];
@@ -27,8 +25,6 @@ const Content = () => {
           randomFavorites.push(randomHero.id);
         }
       }
-
-      // Atualizar os favoritos no contexto
       setFavorites(randomFavorites);
     }
   };
@@ -40,6 +36,7 @@ const Content = () => {
       <div className="heroes-grid">
         {context?.superHeroes
           .filter((hero) => context?.favorites.includes(hero.id))
+          .slice(0, 3)
           .map((hero) => (
             <div className="hero-card" key={hero.id}>
               <HeroInfo
