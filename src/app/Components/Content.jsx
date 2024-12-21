@@ -10,7 +10,9 @@ const Content = () => {
   useEffect(() => {
     if (context && context.superHeroes.length > 0) {
       setLoading(false);
-      generateRandomFavorites();
+      if (context.favorites.length === 0) {
+        generateRandomFavorites(); 
+      }
     }
   }, [context]);
 
