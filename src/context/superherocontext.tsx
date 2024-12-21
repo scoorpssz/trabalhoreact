@@ -38,7 +38,9 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const addHero = (hero: Hero) => {
     setSuperHeroes((currentData) => {
-      const updatedList = [...currentData, hero];
+      const newId = currentData.length > 0 ? Math.max(...currentData.map(h => h.id)) + 1 : 1;
+      const heroWithId = { ...hero, id: newId };
+      const updatedList = [...currentData, heroWithId];
       UpdateSuperhero(updatedList);
       return updatedList;
     });
