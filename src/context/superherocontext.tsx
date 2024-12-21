@@ -81,7 +81,7 @@ export const SuperHeroProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setFavorites(updatedFavorites);
       UpdateTop(updatedFavorites); 
     } else {
-      // Se não é favorito, adiciona na lista
+  
       const updatedFavorites = [...favorites, id];
       setFavorites(updatedFavorites);
       UpdateTop(updatedFavorites); 
