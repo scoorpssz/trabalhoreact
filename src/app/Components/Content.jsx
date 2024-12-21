@@ -18,14 +18,17 @@ const Content = () => {
   const generateRandomFavorites = () => {
     if (context) {
       const { superHeroes, setFavorites } = context;
-      const randomFavorites = new Set();
 
-      while (randomFavorites.size < 3 && superHeroes.length >= 3) {
-        const randomHero = superHeroes[Math.floor(Math.random() * superHeroes.length)];
-        randomFavorites.add(randomHero.id);
+      if (superHeroes.length >= 3) {
+        const randomFavorites = new Set();
+
+        while (randomFavorites.size < 3) {
+          const randomHero = superHeroes[Math.floor(Math.random() * superHeroes.length)];
+          randomFavorites.add(randomHero.id);
+        }
+
+        setFavorites(Array.from(randomFavorites));
       }
-
-      setFavorites(Array.from(randomFavorites));
     }
   };
 
@@ -34,9 +37,9 @@ const Content = () => {
       {loading && <Loader />}
       <button onClick={generateRandomFavorites}>Mudar Favoritos</button>
       <div className="heroes-grid">
-        {context?.superHeroes
-          .filter((hero) => context?.favorites.includes(hero.id))
-          .map((hero) => (
+        {context?.favorites.map((favoriteId) => {
+          const hero = context.superHeroes.find((h) => h.id === favoriteId);
+          return hero ? (
             <div className="hero-card" key={hero.id}>
               <HeroInfo
                 image={hero.image}
@@ -44,7 +47,8 @@ const Content = () => {
                 superPower={hero.super_power}
               />
             </div>
-          ))}
+          ) : null;
+        })}
       </div>
     </div>
   );
